@@ -17,8 +17,20 @@ function fullScreen(){
 		video.classList.replace("max-w-[1080px]", "max-w-[950px]");
 		video.after(description);
 	}
+	computeWidth();
 }
 
+function computeWidth(){
+	if (video == null)
+		return;
+	if (video.classList.contains("max-w-[1080px]")){
+		video.style.width= video.clientWidth * (window.innerHeight - 90) / video.clientHeight + "px";
+		video.style.margin = "0 auto";
+	}else{
+		video.style.width = null;
+		video.style.margin = "";
+	}
+}
 
 var scriptObj = document.createElement("script");
 
@@ -31,3 +43,4 @@ window.addEventListener("message", function(event) {
 });
 
 document.body.append(scriptObj);
+addEventListener("resize", (event) => {computeWidth();});
